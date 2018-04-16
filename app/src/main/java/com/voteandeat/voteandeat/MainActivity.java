@@ -1,25 +1,25 @@
 package com.voteandeat.voteandeat;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-
-    Button btnLogin;
+    private static int SPLASH_TIME_OUT = 2000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        btnLogin = findViewById(R.id.btnLogin);
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void onClick(View view) {
-                Intent loginAct =  new Intent(getApplicationContext(),LoginActivity.class);
-                startActivity(loginAct);
+            public void run() {
+                Intent homeIntent =  new Intent(MainActivity.this,LoginActivity.class);
+                startActivity(homeIntent);
+                finish();
             }
-        });
+        },SPLASH_TIME_OUT);
     }
 }
