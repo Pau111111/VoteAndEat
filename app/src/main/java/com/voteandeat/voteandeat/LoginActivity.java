@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +26,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.FirebaseDatabase;
+import com.voteandeat.voteandeat.Model.User;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -83,7 +86,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            String user = mAuth.getCurrentUser().getDisplayName();
+                            String email = mAuth.getCurrentUser().getEmail();
+                            User userAux = new User(
+                                    user,email
+                            );
+                            FirebaseDatabase.getInstance().getReference("Users")
+                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .setValue(userAux);
                             Intent i = new Intent(getApplicationContext(), HomeActivity.class);
                             startActivity(i);
                             finish();

@@ -1,5 +1,6 @@
 package com.voteandeat.voteandeat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,14 +13,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+
+import org.w3c.dom.Text;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    FirebaseAuth mAuth;
+    TextView nameUser,mailUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        mAuth = FirebaseAuth.getInstance();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -40,6 +48,23 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        // GET VIEW TO GET THE ID
+        View headerView = navigationView.getHeaderView(0);
+        //ID TEXTVIEW EMAIL
+        //--
+        //GET MAIL FROM FIREBASE
+        String userMail = mAuth.getCurrentUser().getEmail();
+        TextView mailUser = headerView.findViewById(R.id.emailUser);
+        mailUser.setText(userMail);
+        //ID TEXTVIEW USERNAME
+        //--
+        // GET USERNAME FROM FIREBASE
+        String userName = mAuth.getCurrentUser().getDisplayName();
+        TextView nameUser = headerView.findViewById(R.id.fullNameUser);
+        nameUser.setText(userName);
+
     }
 
     @Override
@@ -56,6 +81,7 @@ public class HomeActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home, menu);
+
         return true;
     }
 
@@ -77,23 +103,29 @@ public class HomeActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        switch (item.getItemId()) {
+            case R.id.nav_votes:
+                getSupportFragmentManager().beginTransaction().replace(R.id.test,
+                        new VotesActivity()).commit();
+                break;
+            case R.id.nav_favs:
+                getSupportFragmentManager().beginTransaction().replace(R.id.test,
+                        new FavoritesActivity()).commit();
+                break;
+            case R.id.nav_restaurants:
+                getSupportFragmentManager().beginTransaction().replace(R.id.test,
+                        new RestaurantsActivity()).commit();
+                break;
+            case R.id.nav_settings:
+                getSupportFragmentManager().beginTransaction().replace(R.id.test,
+                        new SettingsActivity()).commit();
+                break;
+            case R.id.nav_logout:
+                mAuth.signOut();
+                startActivity(new Intent(HomeActivity.this, LoginActivity.class)); //Go back to home page
+                finish();
+                break;
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
