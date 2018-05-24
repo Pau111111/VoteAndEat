@@ -25,6 +25,10 @@
     <item android:title="User">
         <menu>
             <item
+                android:id="@+id/nav_user"
+                android:icon="@drawable/icprofile"
+                android:title="@string/nav_user" />
+            <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/iclogout"
                 android:title="@string/nav_logout" />

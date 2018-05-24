@@ -78,9 +78,9 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //MAIL
-                TextView mailUser = headerView.findViewById(R.id.emailUser);
+                /*TextView mailUser = headerView.findViewById(R.id.emailUser);
                 String email = dataSnapshot.child(id).child("email").getValue(String.class);
-                mailUser.setText(email);
+                mailUser.setText(email);*/
                 //NAME
                 TextView nameUser = headerView.findViewById(R.id.fullNameUser);
                 String username = dataSnapshot.child(id).child("name").getValue(String.class);
@@ -126,7 +126,7 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_aboutus) {
             return true;
         }
 
@@ -152,6 +152,10 @@ public class HomeActivity extends AppCompatActivity
             case R.id.nav_settings:
                 getSupportFragmentManager().beginTransaction().replace(R.id.test,
                         new SettingsActivity()).commit();
+                break;
+            case R.id.nav_user:
+                getSupportFragmentManager().beginTransaction().replace(R.id.test,
+                        new MyProfileActivity()).commit();
                 break;
             case R.id.nav_logout:
                 mAuth.signOut();
