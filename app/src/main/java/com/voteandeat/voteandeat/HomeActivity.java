@@ -1,9 +1,13 @@
 package com.voteandeat.voteandeat;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,15 +17,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
+import com.voteandeat.voteandeat.Model.User;
 
 import org.w3c.dom.Text;
+
+import java.net.URL;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
     TextView nameUser,mailUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,20 +67,37 @@ public class HomeActivity extends AppCompatActivity
 
 
         // GET VIEW TO GET THE ID
-        View headerView = navigationView.getHeaderView(0);
+        final View headerView = navigationView.getHeaderView(0);
         //ID TEXTVIEW EMAIL
         //--
         //GET MAIL FROM FIREBASE
-        String userMail = mAuth.getCurrentUser().getEmail();
-        TextView mailUser = headerView.findViewById(R.id.emailUser);
-        mailUser.setText(userMail);
-        //ID TEXTVIEW USERNAME
-        //--
-        // GET USERNAME FROM FIREBASE
-        String userName = mAuth.getCurrentUser().getDisplayName();
-        TextView nameUser = headerView.findViewById(R.id.fullNameUser);
-        nameUser.setText(userName);
+        final String id = mAuth.getCurrentUser().getUid();
+        //PRUEBA
+        mDatabase = FirebaseDatabase.getInstance().getReference("Users");
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //MAIL
+                TextView mailUser = headerView.findViewById(R.id.emailUser);
+                String email = dataSnapshot.child(id).child("email").getValue(String.class);
+                mailUser.setText(email);
+                //NAME
+                TextView nameUser = headerView.findViewById(R.id.fullNameUser);
+                String username = dataSnapshot.child(id).child("name").getValue(String.class);
+                nameUser.setText(username);
 
+                ImageView imageUser = headerView.findViewById(R.id.imageUser);
+                String url = dataSnapshot.child(id).child("photourl").getValue(String.class);
+                Picasso.get().load(url).into(imageUser);
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override

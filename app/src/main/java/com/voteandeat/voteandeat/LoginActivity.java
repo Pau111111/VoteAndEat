@@ -88,9 +88,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if (task.isSuccessful()) {
                             String user = mAuth.getCurrentUser().getDisplayName();
                             String email = mAuth.getCurrentUser().getEmail();
+                            String url = mAuth.getCurrentUser().getPhotoUrl().toString();
                             User userAux = new User(
                                     user,email
                             );
+                            userAux.setPhotourl(url);
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .setValue(userAux);

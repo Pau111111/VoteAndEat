@@ -55,6 +55,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         final String email = editTextEmail.getText().toString().trim();
         final String password = editTextPassword.getText().toString().trim();
         final String name = editTextName.getText().toString().trim();
+        final String photourl = "https://firebasestorage.googleapis.com/v0/b/voteandeat.appspot.com/o/default.jpg?alt=media&token=2c69c28c-3cae-47a0-ac05-e335e4abc29d";
 
 
         // RESTRICTIONS
@@ -93,6 +94,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     User user = new User(
                         name,email
                     );
+                    user.setPhotourl(photourl);
                     FirebaseDatabase.getInstance().getReference("Users")
                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                     .setValue(user);
