@@ -129,6 +129,9 @@ public class HomeActivity extends AppCompatActivity
         if (id == R.id.action_aboutus) {
             return true;
         }
+        if (id == R.id.action_maps) {
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
