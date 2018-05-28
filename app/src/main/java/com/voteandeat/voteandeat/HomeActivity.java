@@ -27,12 +27,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.RequestCreator;
-import com.voteandeat.voteandeat.Model.User;
+import com.voteandeat.voteandeat.GoogleAPI.MapsActivity;
 
-import org.w3c.dom.Text;
-
-import java.net.URL;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -130,7 +126,7 @@ public class HomeActivity extends AppCompatActivity
             return true;
         }
         if (id == R.id.action_maps) {
-            return true;
+            startActivity(new Intent(HomeActivity.this,MapsActivity.class));
         }
 
         return super.onOptionsItemSelected(item);
