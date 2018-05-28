@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/action_market"
-        android:enabled="true"
-        android:title="Market"
-        android:icon="@drawable/ic_error_black_24dp"
-        app:showAsAction="ifRoom"/>
-
-    <item android:id="@+id/action_school"
-        android:enabled="true"
-        android:title="School"
-        android:icon="@drawable/ic_error_black_24dp"
-        app:showAsAction="ifRoom"/>
-
-    <item android:id="@+id/action_restaurant"
+    <item android:id="@+id/action_restaurant_maps"
         android:enabled="true"
         android:title="Restaurant"
         android:icon="@drawable/ic_restaurant_menu_black_24dp"
         app:showAsAction="ifRoom"/>
 
-    <item android:id="@+id/action_hospital"
+    <item android:id="@+id/action_takeaway_maps"
         android:enabled="true"
-        android:title="Hospital"
-        android:icon="@drawable/ic_error_black_24dp"
+        android:title="Takeaway"
+        android:icon="@drawable/ic_local_pizza_black_24dp"
+        app:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/action_cafe_maps"
+        android:enabled="true"
+        android:title="Cafe"
+        android:icon="@drawable/ic_local_cafe_black_24dp"
+        app:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/action_bar_maps"
+        android:enabled="true"
+        android:title="Bar"
+        android:icon="@drawable/ic_local_bar_black_24dp"
         app:showAsAction="ifRoom"/>
 </menu>
