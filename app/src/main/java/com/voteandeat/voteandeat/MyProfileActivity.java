@@ -1,6 +1,7 @@
 package com.voteandeat.voteandeat;
 
 import android.app.Fragment;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,7 +28,8 @@ public class MyProfileActivity extends android.support.v4.app.Fragment {
     FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     Button btnUpdate;
-    TextView nameUser;
+    TextView nameUser,showUpdateName,showUpdateMail;
+    ImageView imageUserUpdate;
 
     @Nullable
     @Override
@@ -35,6 +37,9 @@ public class MyProfileActivity extends android.support.v4.app.Fragment {
         final View view = inflater.inflate(R.layout.activity_myprofile,container,false);
        btnUpdate = view.findViewById(R.id.btnUpdate);
        nameUser = view.findViewById(R.id.textUsername);
+        showUpdateName = view.findViewById(R.id.showNameUpdate);
+        showUpdateMail = view.findViewById(R.id.showMailUpdate);
+        imageUserUpdate = view.findViewById(R.id.imageUpdateUser);
         mAuth = FirebaseAuth.getInstance();
         //GET MAIL FROM FIREBASE
         final String id = mAuth.getCurrentUser().getUid();
@@ -47,6 +52,12 @@ public class MyProfileActivity extends android.support.v4.app.Fragment {
                 String username = dataSnapshot.child(id).child("name").getValue(String.class);
                 nameUser.setText(username);
 
+                showUpdateName.setText(username);
+                String mail = dataSnapshot.child(id).child("email").getValue(String.class);
+                showUpdateMail.setText(mail);
+
+                String photourl = dataSnapshot.child(id).child("photourl").getValue(String.class);
+                Picasso.get().load(photourl).into(imageUserUpdate);
 
             }
 
@@ -72,7 +83,7 @@ public class MyProfileActivity extends android.support.v4.app.Fragment {
     private boolean updateArtist(String id,String name){
         mDatabase = FirebaseDatabase.getInstance().getReference("Users").child(id);
         mDatabase.child("name").setValue(name);
-        Toast.makeText(getView().getContext(), "You are already registered", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getView().getContext(), "Updated Succesfully", Toast.LENGTH_SHORT).show();
         return true;
     }
 }
