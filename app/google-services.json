@@ -15,12 +15,32 @@
       },
       "oauth_client": [
         {
+          "client_id": "584338179681-496968bvcihfp8evu80dua0r2874ojmv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.voteandeat.voteandeat",
+            "certificate_hash": "b885aeccf89e0ee07767c22adb0bfcfc1a73502a"
+          }
+        },
+        {
+          "client_id": "584338179681-uafuoe9v4bb2b3pcsjhafcbn9jgs0b7s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.voteandeat.voteandeat",
+            "certificate_hash": "a08a988f1f99be68d828fb8f26f9f98814ae20c2"
+          }
+        },
+        {
           "client_id": "584338179681-mr5s49qb82ej2f9c2b3vss6goko2n2uo.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.voteandeat.voteandeat",
             "certificate_hash": "fdd1d97af00b5fc3c9ce09210e403bb631b1670b"
           }
+        },
+        {
+          "client_id": "584338179681-hj39e0u0jsao4l2j6bkdbt3ocvnfp4nj.apps.googleusercontent.com",
+          "client_type": 3
         },
         {
           "client_id": "584338179681-hj39e0u0jsao4l2j6bkdbt3ocvnfp4nj.apps.googleusercontent.com",
