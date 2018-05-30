@@ -1,14 +1,11 @@
-package com.voteandeat.voteandeat.Chat;
+package com.voteandeat.voteandeat.Room.Chat;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,8 +24,8 @@ import java.util.Set;
 public class ChatActivity extends AppCompatActivity {
 
     ListView lvDiscussionTopics;
-    ArrayList<String> listOfDiscussion = new ArrayList<String>();
-    ArrayAdapter arrayAdpt;
+    ArrayList<String> listOfChats = new ArrayList<String>();
+    ArrayAdapter arrayChats;
 
     String UserName;
 
@@ -41,9 +38,9 @@ public class ChatActivity extends AppCompatActivity {
 
 
         lvDiscussionTopics = (ListView) findViewById(R.id.lvDiscussionTopics);
-        arrayAdpt = new ArrayAdapter(this,
-                android.R.layout.simple_list_item_1, listOfDiscussion);
-        lvDiscussionTopics.setAdapter(arrayAdpt);
+        arrayChats = new ArrayAdapter(this,
+                android.R.layout.simple_list_item_1, listOfChats);
+        lvDiscussionTopics.setAdapter(arrayChats);
 
 
         //getUserName();
@@ -59,9 +56,9 @@ public class ChatActivity extends AppCompatActivity {
                     set.add(((DataSnapshot)i.next()).getKey());
                 }
 
-                arrayAdpt.clear();
-                arrayAdpt.addAll(set);
-                arrayAdpt.notifyDataSetChanged();
+                arrayChats.clear();
+                arrayChats.addAll(set);
+                arrayChats  .notifyDataSetChanged();
             }
 
             @Override
@@ -82,24 +79,4 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
     }
-
-    /*private void getUserName(){
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        final EditText userName = new EditText(this);
-
-        builder.setView(userName);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                UserName = userName.getText().toString();
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                getUserName();
-            }
-        });
-        builder.show();
-    }*/
 }

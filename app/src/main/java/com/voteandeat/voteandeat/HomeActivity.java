@@ -1,13 +1,12 @@
 package com.voteandeat.voteandeat;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,6 +16,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,8 +28,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
-import com.voteandeat.voteandeat.Chat.ChatActivity;
+import com.voteandeat.voteandeat.Room.Chat.ChatActivity;
 import com.voteandeat.voteandeat.GoogleAPI.MapsActivity;
+import com.voteandeat.voteandeat.Room.Model.Chat;
+import com.voteandeat.voteandeat.Room.Model.Member;
+import com.voteandeat.voteandeat.Room.Model.Room;
+
+import java.util.Map;
 
 
 public class HomeActivity extends AppCompatActivity
@@ -36,6 +42,8 @@ public class HomeActivity extends AppCompatActivity
     FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     TextView nameUser,mailUser;
+    final Context context = this;
+    String username;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +56,26 @@ public class HomeActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(HomeActivity.this);
+                View mView = getLayoutInflater().inflate(R.layout.dialog_create_room,null);
+                final EditText rName = mView.findViewById(R.id.etRoomName);
+                Button btnCreateRoom = mView.findViewById(R.id.btnCreateRoom);
+
+                btnCreateRoom.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Chat chatAux = new Chat();
+                        Member memberAux = new Member(mAuth.getCurrentUser().getUid(),username,"admin");
+                        Room roomAux = new Room(rName.getText().toString(),true,chatAux,memberAux);
+                        mDatabase = FirebaseDatabase.getInstance().getReference("Rooms");
+                        String  room_key = mDatabase.push().getKey();
+                        DatabaseReference mDatabaseRooms = mDatabase.child(room_key);
+                        mDatabaseRooms.setValue(roomAux);
+                    }
+                });
+                alertDialogBuilder.setView(mView);
+                AlertDialog dialog = alertDialogBuilder.create();
+                dialog.show();
             }
         });
 
@@ -80,7 +106,7 @@ public class HomeActivity extends AppCompatActivity
                 mailUser.setText(email);*/
                 //NAME
                 TextView nameUser = headerView.findViewById(R.id.fullNameUser);
-                String username = dataSnapshot.child(id).child("name").getValue(String.class);
+                username = dataSnapshot.child(id).child("name").getValue(String.class);
                 nameUser.setText(username);
 
                 ImageView imageUser = headerView.findViewById(R.id.imageUser);

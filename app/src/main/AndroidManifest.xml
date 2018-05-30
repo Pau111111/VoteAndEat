@@ -44,11 +44,11 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".AdminActivity"></activity>
         <activity
-            android:name=".Chat.ChatActivity"
+            android:name=".Room.Chat.ChatActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Chat.DiscussionActivity"
+            android:name=".Room.Chat.DiscussionActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
 

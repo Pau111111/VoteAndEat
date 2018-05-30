@@ -1,4 +1,4 @@
-package com.voteandeat.voteandeat.Chat;
+package com.voteandeat.voteandeat.Room.Chat;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -32,7 +32,7 @@ public class DiscussionActivity extends AppCompatActivity {
     ArrayList<String> listConversation = new ArrayList<String>();
     ArrayAdapter arrayAdpt;
 
-    String idUser,UserName, SelectedTopic, user_msg_key;
+    String idUser,UserName, ChatSelected, user_msg_key;
 
     private DatabaseReference dbr;
     private FirebaseAuth mAuth;
@@ -68,17 +68,17 @@ public class DiscussionActivity extends AppCompatActivity {
 
             }
         });
-        SelectedTopic = getIntent().getExtras().get("selected_topic").toString();
-        setTitle("Topic : " + SelectedTopic);
+        ChatSelected = getIntent().getExtras().get("selected_topic").toString();
+        setTitle("Topic : " + ChatSelected);
 
-        dbr = FirebaseDatabase.getInstance().getReference().child(SelectedTopic);
+        dbr = FirebaseDatabase.getInstance().getReference().child(ChatSelected);
 
         btnSendMsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 user_msg_key = dbr.push().getKey();
-                dbr = FirebaseDatabase.getInstance().getReference("Rooms").child(SelectedTopic).child("Chat");
+                dbr = FirebaseDatabase.getInstance().getReference("Rooms").child(ChatSelected).child("Chat");
                 dbr.updateChildren(map);
 
                 DatabaseReference dbr2 = dbr.child(user_msg_key);
@@ -86,14 +86,13 @@ public class DiscussionActivity extends AppCompatActivity {
                 //TODO ID
                 map2.put("msg", etMsg.getText().toString());
                 map2.put("user", UserName);
-                //map2.put("iduser", id);
                 dbr2.updateChildren(map2);
 
                 etMsg.setText("");
             }
         });
 
-        dbr = FirebaseDatabase.getInstance().getReference("Rooms").child(SelectedTopic).child("Chat");
+        dbr = FirebaseDatabase.getInstance().getReference("Rooms").child(ChatSelected).child("Chat");
         dbr.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -128,9 +127,10 @@ public class DiscussionActivity extends AppCompatActivity {
     public void updateConversation(DataSnapshot dataSnapshot){
         String msg, user, conversation;
         Iterator i = dataSnapshot.getChildren().iterator();
-       // Iterator i=  dataSnapshot.child("Rooms").child(SelectedTopic).child("Chat").getChildren().iterator();
+       // Iterator i=  dataSnapshot.child("Rooms").child(ChatSelected).child("Chat").getChildren().iterator();
         while(i.hasNext()){
             msg = (String) ((DataSnapshot)i.next()).getValue();
+            //i.next();
             user = (String) ((DataSnapshot)i.next()).getValue();
 
             conversation = user + ": " + msg;
