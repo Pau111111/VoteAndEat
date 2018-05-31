@@ -4,7 +4,9 @@ public class Member {
     public String idUser;
     public String name;
     public String privileges;
+    public Member(){
 
+    }
     public Member(String idUser, String name, String privileges) {
         this.idUser = idUser;
         this.name = name;

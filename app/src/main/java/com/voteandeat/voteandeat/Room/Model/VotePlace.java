@@ -5,12 +5,15 @@ public class VotePlace {
     public String address;
     public String name;
     public String photoUrl;
-    public String latitude;
-    public String longitude;
+    public Double latitude;
+    public Double longitude;
     public Double stars;
     public String mapUrl;
 
-    public VotePlace(String idUser, String address, String name, String photoUrl, String latitude, String longitude, Double stars, String mapUrl) {
+    public VotePlace(){
+
+    }
+    public VotePlace(String idUser, String address, String name, String photoUrl, Double latitude, Double longitude, Double stars, String mapUrl) {
         this.idUser = idUser;
         this.address = address;
         this.name = name;
@@ -53,19 +56,19 @@ public class VotePlace {
         this.photoUrl = photoUrl;
     }
 
-    public String getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public String getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 

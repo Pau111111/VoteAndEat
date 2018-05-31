@@ -1,16 +1,18 @@
 package com.voteandeat.voteandeat.Room.Model;
 
-import android.text.Editable;
-
 public class Room {
 
+    public String id;
     public String name;
     public Boolean open;
     public Chat chat;
     public Member members;
     public Vote vote;
+    public Room(){
 
-    public Room(String name, Boolean open, Chat chat, Member members) {
+    }
+    public Room(String id,String name, Boolean open, Chat chat, Member members) {
+        this.id = id;
         this.name = name;
         this.open = open;
         this.chat = chat;
@@ -18,6 +20,13 @@ public class Room {
     }
 
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -62,7 +71,8 @@ public class Room {
     @Override
     public String toString() {
         return "Room{" +
-                "name='" + name + '\'' +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
                 ", open=" + open +
                 ", chat=" + chat +
                 ", members=" + members +

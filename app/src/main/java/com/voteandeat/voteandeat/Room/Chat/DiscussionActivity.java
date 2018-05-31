@@ -2,7 +2,6 @@ package com.voteandeat.voteandeat.Room.Chat;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -45,7 +44,7 @@ public class DiscussionActivity extends AppCompatActivity {
         btnSendMsg = (Button) findViewById(R.id.btnSendMsg);
         etMsg = (EditText) findViewById(R.id.etMessage);
 
-        lvDiscussion = (ListView) findViewById(R.id.lvConversation);
+        lvDiscussion = (ListView) findViewById(R.id.lvListOfPlacesLastStep);
         arrayAdpt = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listConversation);
         lvDiscussion.setAdapter(arrayAdpt);
 

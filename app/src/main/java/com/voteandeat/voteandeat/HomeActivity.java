@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -60,21 +61,22 @@ public class HomeActivity extends AppCompatActivity
                 View mView = getLayoutInflater().inflate(R.layout.dialog_create_room,null);
                 final EditText rName = mView.findViewById(R.id.etRoomName);
                 Button btnCreateRoom = mView.findViewById(R.id.btnCreateRoom);
-
+                alertDialogBuilder.setView(mView);
+                final AlertDialog dialog = alertDialogBuilder.create();
                 btnCreateRoom.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Chat chatAux = new Chat();
                         Member memberAux = new Member(mAuth.getCurrentUser().getUid(),username,"admin");
-                        Room roomAux = new Room(rName.getText().toString(),true,chatAux,memberAux);
-                        mDatabase = FirebaseDatabase.getInstance().getReference("Rooms");
                         String  room_key = mDatabase.push().getKey();
+                        Room roomAux = new Room(room_key,rName.getText().toString(),true,chatAux,memberAux);
+                        mDatabase = FirebaseDatabase.getInstance().getReference("Rooms");
                         DatabaseReference mDatabaseRooms = mDatabase.child(room_key);
                         mDatabaseRooms.setValue(roomAux);
+                        Toast.makeText(getApplicationContext(), "Room created succesfully", Toast.LENGTH_SHORT).show();
+                        dialog.cancel();
                     }
                 });
-                alertDialogBuilder.setView(mView);
-                AlertDialog dialog = alertDialogBuilder.create();
                 dialog.show();
             }
         });

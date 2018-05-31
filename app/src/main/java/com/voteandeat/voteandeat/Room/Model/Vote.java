@@ -7,6 +7,9 @@ public class Vote {
     public boolean state;
     public ArrayList<VotePlace> votePlaces;
 
+    public Vote(){
+
+    }
     public Vote(boolean state, ArrayList<VotePlace> votePlaces) {
         this.state = state;
         this.votePlaces = votePlaces;
