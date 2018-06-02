@@ -40,14 +40,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     GoogleSignInClient mGoogleSignInClient;
     //SignInButton signInButton;
     Button btnRegister, btnLogin;
-    ProgressBar progressBarLogin;
     DatabaseReference mDatabase;
+    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        session = new Session(this);
+        if(session.loggedin()){
+            Intent homeIntent =  new Intent(LoginActivity.this,HomeActivity.class);
+            startActivity(homeIntent);
+            finish();
+        }
         mAuth = FirebaseAuth.getInstance();
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -91,6 +96,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            session.setLoggedin(true);
                             final String email = mAuth.getCurrentUser().getEmail();
                             mDatabase = FirebaseDatabase.getInstance().getReference();
                             mDatabase.child("Users").orderByChild("email").equalTo(email).addListenerForSingleValueEvent(
@@ -113,6 +119,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                                 User userAux = new User(
                                                         user,email
                                                 );
+
                                                 userAux.setPhotourl(url);
                                                 FirebaseDatabase.getInstance().getReference("Users")
                                                         .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
@@ -186,6 +193,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            session.setLoggedin(true);
                             //Log.d("Mail","s");
                             if (email.equals("admin@admin.com")) {
                                 Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
