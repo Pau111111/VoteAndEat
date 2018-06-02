@@ -3,36 +3,28 @@ package com.voteandeat.voteandeat;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.voteandeat.voteandeat.GoogleAPI.MapsActivity;
 import com.voteandeat.voteandeat.Room.Chat.DiscussionActivity;
-import com.voteandeat.voteandeat.Room.Model.Room;
 import com.voteandeat.voteandeat.Room.Model.VotePlace;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 public class RoomActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     ListView listViewPlacesLastStep;
     List<VotePlace> votePlaces;
     String idRoom;
-    Button btnChatRoomn, btnAddRestaurant;
+    Button btnChatRoom, btnAddRestaurant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +33,22 @@ public class RoomActivity extends AppCompatActivity {
 
         idRoom = getIntent().getExtras().get("idActualRoom").toString();
 
-        btnChatRoomn = findViewById(R.id.btnChatRoom);
+        btnChatRoom = findViewById(R.id.btnChatRoom);
+        btnAddRestaurant = findViewById(R.id.btnAddRestaurantRoom);
 
-        btnChatRoomn.setOnClickListener(new View.OnClickListener() {
+        btnChatRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(RoomActivity.this, DiscussionActivity.class);
+                i.putExtra("idActualRoom", idRoom);
+                startActivity(i);
+            }
+        });
+
+        btnAddRestaurant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(RoomActivity.this, MapsActivity.class);
                 i.putExtra("idActualRoom", idRoom);
                 startActivity(i);
             }

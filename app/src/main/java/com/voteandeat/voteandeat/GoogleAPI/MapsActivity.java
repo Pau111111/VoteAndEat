@@ -54,10 +54,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     MyPlaces currentPlace;
 
+    String idRoom;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        //Obtain idRoom
+        //IF idActualRoom exists
+        Intent intent = getIntent();
+        if(intent.hasExtra("idActualRoom")) {
+            idRoom = getIntent().getExtras().get("idActualRoom").toString();
+            Log.d("Puchu","idRoom on create" + idRoom);
+        }
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -246,8 +257,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public boolean onMarkerClick(Marker marker) {
                 //When user select marker, just get Result of Place and assign to static variable
                 Common.currentResult = currentPlace.getResults()[Integer.parseInt(marker.getSnippet())];
+
+                Intent i = new Intent(MapsActivity.this, ViewPlace.class);
+                if(idRoom != null) {
+                   i.putExtra("idActualRoom", idRoom);
+                    Log.d("Puchu", "idRoom onMarkerClick"+idRoom);
+                }
+
                 //Start a new activity
-                startActivity(new Intent(MapsActivity.this,ViewPlace.class));
+                startActivity(i);
                 return true;
             }
         });
