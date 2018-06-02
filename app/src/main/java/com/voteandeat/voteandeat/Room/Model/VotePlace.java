@@ -7,13 +7,14 @@ public class VotePlace {
     public String photoUrl;
     public Double latitude;
     public Double longitude;
-    public Double stars;
+    public String stars;
+    public Boolean openNow;
     public String mapUrl;
 
     public VotePlace(){
 
     }
-    public VotePlace(String idUser, String address, String name, String photoUrl, Double latitude, Double longitude, Double stars, String mapUrl) {
+    public VotePlace(String idUser, String address, String name, String photoUrl, Double latitude, Double longitude, String stars, String mapUrl, Boolean openNow) {
         this.idUser = idUser;
         this.address = address;
         this.name = name;
@@ -22,6 +23,7 @@ public class VotePlace {
         this.longitude = longitude;
         this.stars = stars;
         this.mapUrl = mapUrl;
+        this.openNow = openNow;
     }
 
     public String getIdUser() {
@@ -72,11 +74,11 @@ public class VotePlace {
         this.longitude = longitude;
     }
 
-    public Double getStars() {
+    public String getStars() {
         return stars;
     }
 
-    public void setStars(Double stars) {
+    public void setStars(String stars) {
         this.stars = stars;
     }
 
@@ -88,6 +90,14 @@ public class VotePlace {
         this.mapUrl = mapUrl;
     }
 
+    public Boolean getOpenNow() {
+        return openNow;
+    }
+
+    public void setOpenNow(Boolean openNow) {
+        this.openNow = openNow;
+    }
+
     @Override
     public String toString() {
         return "VotePlace{" +
@@ -95,9 +105,10 @@ public class VotePlace {
                 ", address='" + address + '\'' +
                 ", name='" + name + '\'' +
                 ", photoUrl='" + photoUrl + '\'' +
-                ", latitude='" + latitude + '\'' +
-                ", longitude='" + longitude + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
                 ", stars=" + stars +
+                ", openNow=" + openNow +
                 ", mapUrl='" + mapUrl + '\'' +
                 '}';
     }

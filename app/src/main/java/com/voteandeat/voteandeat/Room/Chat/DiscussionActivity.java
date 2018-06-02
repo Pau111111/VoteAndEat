@@ -67,7 +67,7 @@ public class DiscussionActivity extends AppCompatActivity {
 
             }
         });
-        ChatSelected = getIntent().getExtras().get("selected_topic").toString();
+        ChatSelected = getIntent().getExtras().get("idActualRoom").toString();
         setTitle("Topic : " + ChatSelected);
 
         dbr = FirebaseDatabase.getInstance().getReference().child(ChatSelected);

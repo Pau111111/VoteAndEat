@@ -91,7 +91,7 @@ public class VotesActivity extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(view.getContext(), RoomActivity.class);
-                i.putExtra("selected_topic", (listOfIdChats.get(position)));
+                i.putExtra("idActualRoom", (listOfIdChats.get(position)));
                 i.putExtra("room_name", ((TextView)view).getText().toString());
                 i.putExtra("user_name", UserName);
                 Log.d("Position: " , String.valueOf(position));

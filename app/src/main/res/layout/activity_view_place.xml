@@ -47,12 +47,13 @@
             android:text="Open now:"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        
+
         <RatingBar
             android:id="@+id/ratingBar"
-            android:max="5"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:isIndicator="true"
+            android:max="5" />
 
         <Button
             android:id="@+id/btn_show_map"

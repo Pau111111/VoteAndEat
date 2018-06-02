@@ -73,7 +73,7 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(getApplicationContext(), DiscussionActivity.class);
-                i.putExtra("selected_topic", ((TextView)view).getText().toString());
+                i.putExtra("idActualRoom", ((TextView)view).getText().toString());
                 i.putExtra("user_name", UserName);
                 startActivity(i);
             }

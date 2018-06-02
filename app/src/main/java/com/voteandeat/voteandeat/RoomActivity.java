@@ -1,5 +1,6 @@
 package com.voteandeat.voteandeat;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.voteandeat.voteandeat.Room.Chat.DiscussionActivity;
 import com.voteandeat.voteandeat.Room.Model.Room;
 import com.voteandeat.voteandeat.Room.Model.VotePlace;
 
@@ -26,43 +28,58 @@ import java.util.List;
 import java.util.Map;
 
 public class RoomActivity extends AppCompatActivity {
-    ListView lvPlaces;
-    ArrayList<String> listOfPlaces = new ArrayList<String>();
-    ArrayAdapter arrayPlaces;
+    DatabaseReference databaseReference;
+    ListView listViewPlacesLastStep;
+    List<VotePlace> votePlaces;
     String idRoom;
-    private DatabaseReference dbr = FirebaseDatabase.getInstance().getReference().getRoot();
+    Button btnChatRoomn, btnAddRestaurant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room);
-        lvPlaces = findViewById(R.id.lvListOfPlacesLastStep);
-        arrayPlaces = new ArrayAdapter(this,R.layout.simple_place_item,R.id.voteNameLastStep,listOfPlaces);
-        lvPlaces.setAdapter(arrayPlaces);
 
-        idRoom = getIntent().getExtras().get("selected_topic").toString();
+        idRoom = getIntent().getExtras().get("idActualRoom").toString();
 
-        dbr = FirebaseDatabase.getInstance().getReference("Rooms").child(idRoom).child("Votes").child("VotePlace");
-        dbr.addValueEventListener(new ValueEventListener() {
+        btnChatRoomn = findViewById(R.id.btnChatRoom);
+
+        btnChatRoomn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(RoomActivity.this, DiscussionActivity.class);
+                i.putExtra("idActualRoom", idRoom);
+                startActivity(i);
+            }
+        });
+
+
+        votePlaces = new ArrayList<VotePlace>();
+        listViewPlacesLastStep = findViewById(R.id.lvListOfPlacesLastStep);
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("Rooms").child(idRoom).child("Votes").child("VotePlace");
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<String> placeList = new ArrayList<>();
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                votePlaces.clear();
 
-                    VotePlace place = postSnapshot.getValue(VotePlace.class);
-                    Log.d("Place: " , String.valueOf(place));
-                    placeList.add(String.valueOf(place.getName()));
+                for(DataSnapshot postSnapShot: dataSnapshot.getChildren()){
+                    VotePlace votePlace = postSnapShot.getValue(VotePlace.class);
+                    votePlaces.add(votePlace);
                 }
-                arrayPlaces.clear();
-                arrayPlaces.addAll(placeList);
-                arrayPlaces.notifyDataSetChanged();
+
+                VotePlaceList votePlaceAdapter = new VotePlaceList(RoomActivity.this, votePlaces,databaseReference);
+                listViewPlacesLastStep.setAdapter(votePlaceAdapter);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-    });
 
-}
+            }
+        });
+    }
 }
