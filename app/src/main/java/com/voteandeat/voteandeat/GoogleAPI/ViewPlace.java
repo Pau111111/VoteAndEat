@@ -45,7 +45,7 @@ public class ViewPlace extends AppCompatActivity {
     //VOTE
     String addressVotePlace="";
     String nameVotePlace="";
-    String photoUrlVotePlace="";
+    String photoUrlVotePlace="https://firebasestorage.googleapis.com/v0/b/voteandeat.appspot.com/o/icons8-image-file-512.png?alt=media&token=f8e0208d-f94c-4849-bdd1-314bfa115b73";
     Double latitudeVotePlace=0.0;
     Double longitudeVotePlace=0.0;
     String starsVotePlace="";

@@ -41,7 +41,23 @@ class VotePlaceList  extends ArrayAdapter<VotePlace> {
 
         final VotePlace votePlace = votePlacesList.get(pos);
         voteNameLastStep.setText(votePlace.getName());
-        Picasso.get().load(votePlace.getPhotoUrl()).into(voteImgLastStep);
+
+        if(votePlace.getPhotoUrl() != "") {
+            Picasso.get()
+                    .load(votePlace.getPhotoUrl())
+                    .into(voteImgLastStep, new com.squareup.picasso.Callback() {
+                        @Override
+                        public void onSuccess() {
+
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+
+                        }
+                    });
+            //Picasso.get().load(votePlace.getPhotoUrl()).into(voteImgLastStep);
+        }
 
         listViewItem.setOnClickListener(new View.OnClickListener() {
             @Override
