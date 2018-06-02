@@ -45,6 +45,7 @@ public class HomeActivity extends AppCompatActivity
     TextView nameUser,mailUser;
     final Context context = this;
     String username;
+    private Session session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +53,8 @@ public class HomeActivity extends AppCompatActivity
         mAuth = FirebaseAuth.getInstance();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        session = new Session(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -189,6 +192,7 @@ public class HomeActivity extends AppCompatActivity
                         new MyProfileActivity()).commit();
                 break;
             case R.id.nav_logout:
+                session.setLoggedin(false);
                 mAuth.signOut();
                 startActivity(new Intent(HomeActivity.this, LoginActivity.class)); //Go back to home page
                 finish();
