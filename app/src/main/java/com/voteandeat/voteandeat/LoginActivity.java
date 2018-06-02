@@ -40,7 +40,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     GoogleSignInClient mGoogleSignInClient;
     //SignInButton signInButton;
     Button btnRegister, btnLogin;
-    ProgressBar progressBarLogin;
     DatabaseReference mDatabase;
 
     @Override
@@ -113,6 +112,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                                 User userAux = new User(
                                                         user,email
                                                 );
+                                                
                                                 userAux.setPhotourl(url);
                                                 FirebaseDatabase.getInstance().getReference("Users")
                                                         .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
