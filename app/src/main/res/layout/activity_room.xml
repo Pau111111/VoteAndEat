@@ -23,12 +23,12 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="84dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="end voting"
         app:layout_constraintBottom_toTopOf="@+id/textView4"
-        app:layout_constraintEnd_toStartOf="@+id/tvMembersRoom"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -73,14 +73,23 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvMembersRoom"
+        android:id="@+id/membersRoom"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
-        android:layout_marginEnd="44dp"
-        android:background="@android:drawable/btn_dropdown"
+        android:layout_height="16dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="4dp"
         android:text="0 Members"
         app:layout_constraintBottom_toTopOf="@+id/textView4"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/ibShowMemeberRoom" />
+
+    <ImageButton
+        android:id="@+id/ibShowMemeberRoom"
+        android:layout_width="42dp"
+        android:layout_height="41dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_info_details" />
 
 </android.support.constraint.ConstraintLayout>

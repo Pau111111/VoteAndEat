@@ -3,15 +3,15 @@ package com.voteandeat.voteandeat.Room.Model;
 public class Member {
     public String idUser;
     public String name;
-    public String urlUser;
+    public String photoUrlUser;
     public String privileges;
     public Member(){
 
     }
-    public Member(String idUser, String name,String urlUser, String privileges) {
+    public Member(String idUser, String name,String photoUrlUser, String privileges) {
         this.idUser = idUser;
         this.name = name;
-        this.urlUser = urlUser;
+        this.photoUrlUser = photoUrlUser;
         this.privileges = privileges;
     }
 
@@ -31,12 +31,12 @@ public class Member {
         this.name = name;
     }
 
-    public String getUrlUser() {
-        return urlUser;
+    public String getPhotoUrlUser() {
+        return photoUrlUser;
     }
 
-    public void setUrlUser(String urlUser) {
-        this.urlUser = urlUser;
+    public void setPhotoUrlUser(String photoUrlUser) {
+        this.photoUrlUser = photoUrlUser;
     }
 
     public String getPrivileges() {
@@ -52,7 +52,7 @@ public class Member {
         return "Member{" +
                 "idUser='" + idUser + '\'' +
                 ", name='" + name + '\'' +
-                ", urlUser='" + urlUser + '\'' +
+                ", photoUrlUser='" + photoUrlUser + '\'' +
                 ", privileges='" + privileges + '\'' +
                 '}';
     }

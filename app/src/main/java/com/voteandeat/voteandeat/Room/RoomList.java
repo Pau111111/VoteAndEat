@@ -56,7 +56,6 @@ public class RoomList  extends ArrayAdapter<Room> {
         dbReferenceMembers.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 tvMemebersList.setText(dataSnapshot.getChildrenCount()+" Members");
             }
 

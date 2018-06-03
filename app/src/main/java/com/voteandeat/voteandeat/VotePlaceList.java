@@ -45,6 +45,8 @@ class VotePlaceList  extends ArrayAdapter<VotePlace> {
         if(votePlace.getPhotoUrl() != "") {
             Picasso.get()
                     .load(votePlace.getPhotoUrl())
+                    .placeholder(R.drawable.ic_image_room_vote_24dp)
+                    .error(R.drawable.ic_image_room_vote_24dp)
                     .into(voteImgLastStep, new com.squareup.picasso.Callback() {
                         @Override
                         public void onSuccess() {
@@ -95,9 +97,6 @@ class VotePlaceList  extends ArrayAdapter<VotePlace> {
                     openingHours.setText("Closed now");
                 }
                 ratingBar.setRating(Float.parseFloat(votePlace.getStars()));
-
-
-
 
                 mbuilder.setView(mView);
                 AlertDialog dialog = mbuilder.create();

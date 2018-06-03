@@ -50,7 +50,8 @@
             android:name=".Room.Chat.DiscussionActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".RoomActivity"></activity>
+        <activity android:name=".RoomActivity" />
+        <activity android:name=".MembersInRoomActivity"></activity>
     </application>
 
 </manifest>

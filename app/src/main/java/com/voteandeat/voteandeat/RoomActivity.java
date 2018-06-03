@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,10 +23,12 @@ import java.util.List;
 
 public class RoomActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
-    DatabaseReference dbReferenceMembers;
+    DatabaseReference dbReferenceMembersCount;
     ListView listViewPlacesLastStep;
     TextView tvMembersRoom;
+    ImageButton ibShowMemeberRoom;
     List<VotePlace> votePlaces;
+
     String idRoom;
     Button btnChatRoom, btnAddRestaurant;
 
@@ -34,15 +37,14 @@ public class RoomActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room);
 
-        tvMembersRoom = findViewById(R.id.tvMembersRoom);
+        tvMembersRoom = findViewById(R.id.membersRoom);
+        ibShowMemeberRoom = findViewById(R.id.ibShowMemeberRoom);
 
         idRoom = getIntent().getExtras().get("idActualRoom").toString();
 
         //Count Members
-
-
-        dbReferenceMembers = FirebaseDatabase.getInstance().getReference("Rooms").child(idRoom).child("Members");
-        dbReferenceMembers.addValueEventListener(new ValueEventListener() {
+        dbReferenceMembersCount = FirebaseDatabase.getInstance().getReference("Rooms").child(idRoom).child("Members");
+        dbReferenceMembersCount.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 tvMembersRoom.setText(dataSnapshot.getChildrenCount()+" Members");
@@ -51,6 +53,15 @@ public class RoomActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+
+        ibShowMemeberRoom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i2 = new Intent(RoomActivity.this, MembersInRoomActivity.class);
+                i2.putExtra("idActualRoom", idRoom);
+                startActivity(i2);
             }
         });
 
@@ -104,5 +115,6 @@ public class RoomActivity extends AppCompatActivity {
 
             }
         });
+
     }
 }
