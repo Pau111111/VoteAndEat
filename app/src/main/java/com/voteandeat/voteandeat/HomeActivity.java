@@ -45,6 +45,7 @@ public class HomeActivity extends AppCompatActivity
     TextView nameUser,mailUser;
     final Context context = this;
     String username;
+    String urlUser;
     private Session session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +82,7 @@ public class HomeActivity extends AppCompatActivity
                             mDatabaseRooms.setValue(roomAux);
                             Toast.makeText(getApplicationContext(), "Room created successfully", Toast.LENGTH_SHORT).show();
 
-                            Member memberAux = new Member(mAuth.getCurrentUser().getUid(), username, "admin");
+                            Member memberAux = new Member(mAuth.getCurrentUser().getUid(), username, urlUser, "admin");
                             mDatabase = FirebaseDatabase.getInstance().getReference("Rooms").child(room_key).child("Members");
                             String memberInRoomKey = mDatabase.push().getKey();
                             mDatabase = FirebaseDatabase.getInstance().getReference("Rooms").child(room_key).child("Members").child(memberInRoomKey);
@@ -131,8 +132,8 @@ public class HomeActivity extends AppCompatActivity
                 nameUser.setText(username);
 
                 ImageView imageUser = headerView.findViewById(R.id.imageUser);
-                String url = dataSnapshot.child(id).child("photourl").getValue(String.class);
-                Picasso.get().load(url).into(imageUser);
+                urlUser = dataSnapshot.child(id).child("photourl").getValue(String.class);
+                Picasso.get().load(urlUser).into(imageUser);
 
 
             }

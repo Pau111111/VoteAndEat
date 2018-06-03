@@ -13,7 +13,11 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import com.voteandeat.voteandeat.R;
 import com.voteandeat.voteandeat.Room.Model.Room;
@@ -26,6 +30,7 @@ public class RoomList  extends ArrayAdapter<Room> {
     private Activity context;
     private List<Room> roomList;
     DatabaseReference databaseReference;
+    DatabaseReference dbReferenceMembers;
 
     String userName;
 
@@ -46,7 +51,20 @@ public class RoomList  extends ArrayAdapter<Room> {
         tvRoomNameList.setText(room.getName());
 
         //Count Members
-        tvMemebersList.setText("3 Members");
+
+        dbReferenceMembers = FirebaseDatabase.getInstance().getReference("Rooms").child(room.getId()).child("Members");
+        dbReferenceMembers.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                tvMemebersList.setText(dataSnapshot.getChildrenCount()+" Members");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         listViewItem.setOnClickListener(new View.OnClickListener() {
             @Override

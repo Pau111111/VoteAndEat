@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,7 +22,9 @@ import java.util.List;
 
 public class RoomActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
+    DatabaseReference dbReferenceMembers;
     ListView listViewPlacesLastStep;
+    TextView tvMembersRoom;
     List<VotePlace> votePlaces;
     String idRoom;
     Button btnChatRoom, btnAddRestaurant;
@@ -31,7 +34,25 @@ public class RoomActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room);
 
+        tvMembersRoom = findViewById(R.id.tvMembersRoom);
+
         idRoom = getIntent().getExtras().get("idActualRoom").toString();
+
+        //Count Members
+
+
+        dbReferenceMembers = FirebaseDatabase.getInstance().getReference("Rooms").child(idRoom).child("Members");
+        dbReferenceMembers.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                tvMembersRoom.setText(dataSnapshot.getChildrenCount()+" Members");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         btnChatRoom = findViewById(R.id.btnChatRoom);
         btnAddRestaurant = findViewById(R.id.btnAddRestaurantRoom);
