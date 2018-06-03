@@ -63,21 +63,37 @@ public class HomeActivity extends AppCompatActivity
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(HomeActivity.this);
                 View mView = getLayoutInflater().inflate(R.layout.dialog_create_room,null);
                 final EditText rName = mView.findViewById(R.id.etRoomName);
+                final EditText rPassword1 = mView.findViewById(R.id.etRoomPassword1);
+                final EditText rPassword2 = mView.findViewById(R.id.etRoomPassword2);
                 Button btnCreateRoom = mView.findViewById(R.id.btnCreateRoom);
                 alertDialogBuilder.setView(mView);
                 final AlertDialog dialog = alertDialogBuilder.create();
                 btnCreateRoom.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Chat chatAux = new Chat();
-                        Member memberAux = new Member(mAuth.getCurrentUser().getUid(),username,"admin");
-                        String  room_key = mDatabase.push().getKey();
-                        Room roomAux = new Room(room_key,rName.getText().toString(),true,chatAux,memberAux);
-                        mDatabase = FirebaseDatabase.getInstance().getReference("Rooms");
-                        DatabaseReference mDatabaseRooms = mDatabase.child(room_key);
-                        mDatabaseRooms.setValue(roomAux);
-                        Toast.makeText(getApplicationContext(), "Room created succesfully", Toast.LENGTH_SHORT).show();
-                        dialog.cancel();
+                        if(rPassword1.getText().toString().equals(rPassword2.getText().toString())) {
+                            Chat chatAux = new Chat();
+
+                            mDatabase = FirebaseDatabase.getInstance().getReference("Rooms");
+                            String room_key = mDatabase.push().getKey();
+                            Room roomAux = new Room(room_key, rName.getText().toString(), rPassword1.getText().toString(), true, chatAux);
+                            DatabaseReference mDatabaseRooms = mDatabase.child(room_key);
+                            mDatabaseRooms.setValue(roomAux);
+                            Toast.makeText(getApplicationContext(), "Room created successfully", Toast.LENGTH_SHORT).show();
+
+                            Member memberAux = new Member(mAuth.getCurrentUser().getUid(), username, "admin");
+                            mDatabase = FirebaseDatabase.getInstance().getReference("Rooms").child(room_key).child("Members");
+                            String memberInRoomKey = mDatabase.push().getKey();
+                            mDatabase = FirebaseDatabase.getInstance().getReference("Rooms").child(room_key).child("Members").child(memberInRoomKey);
+                            mDatabase.setValue(memberAux);
+                            dialog.cancel();
+
+                            Intent i = new Intent(HomeActivity.this, RoomActivity.class);
+                            i.putExtra("idActualRoom",room_key);
+                            startActivity(i);
+                        } else{
+                            Toast.makeText(getApplicationContext(), "Passwords must match!", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
                 dialog.show();

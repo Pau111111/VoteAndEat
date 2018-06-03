@@ -4,20 +4,22 @@ public class Room {
 
     public String id;
     public String name;
+    public String password;
     public Boolean open;
     public Chat chat;
     public Member members;
     public Vote vote;
-    public Room(){
 
-    }
-    public Room(String id,String name, Boolean open, Chat chat, Member members) {
+    public Room(){}
+
+    public Room(String id,String name, String password, Boolean open, Chat chat) {
         this.id = id;
         this.name = name;
+        this.password = password;
         this.open = open;
         this.chat = chat;
-        this.members = members;
     }
+
 
 
     public String getId() {
@@ -34,6 +36,14 @@ public class Room {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Boolean getOpen() {
@@ -73,6 +83,7 @@ public class Room {
         return "Room{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
                 ", open=" + open +
                 ", chat=" + chat +
                 ", members=" + members +
