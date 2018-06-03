@@ -1,6 +1,5 @@
 package com.voteandeat.voteandeat.GoogleAPI;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,8 +19,6 @@ import com.squareup.picasso.Picasso;
 import com.voteandeat.voteandeat.GoogleAPI.Model.PlaceDetail;
 import com.voteandeat.voteandeat.GoogleAPI.Remote.IGoogleAPIService;
 import com.voteandeat.voteandeat.R;
-import com.voteandeat.voteandeat.Room.Model.Member;
-import com.voteandeat.voteandeat.Room.Model.Room;
 import com.voteandeat.voteandeat.Room.Model.VotePlace;
 import com.voteandeat.voteandeat.RoomActivity;
 
@@ -58,7 +55,10 @@ public class ViewPlace extends AppCompatActivity {
         setContentView(R.layout.activity_view_place);
 
         //get idRoomIfExists
-        idRoom = getIntent().getExtras().get("idActualRoom").toString();
+        Intent intent = getIntent();
+        if(intent.hasExtra("idActualRoom")) {
+            idRoom = getIntent().getExtras().get("idActualRoom").toString();
+        }
 
 
         mService = Common.getGoogleAPIService();

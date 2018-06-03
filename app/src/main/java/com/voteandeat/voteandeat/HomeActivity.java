@@ -180,8 +180,10 @@ public class HomeActivity extends AppCompatActivity
                         new FavoritesActivity()).commit();
                 break;
             case R.id.nav_restaurants:
-                getSupportFragmentManager().beginTransaction().replace(R.id.test,
-                        new RestaurantsActivity()).commit();
+                /*getSupportFragmentManager().beginTransaction().replace(R.id.test,
+                        new RestaurantsActivity()).commit();*/
+                Intent intent = new Intent(HomeActivity.this, MapsActivity.class);
+                startActivity(intent);
                 break;
             case R.id.nav_settings:
                 getSupportFragmentManager().beginTransaction().replace(R.id.test,
