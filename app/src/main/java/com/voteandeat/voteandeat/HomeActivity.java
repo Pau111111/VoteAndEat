@@ -137,8 +137,8 @@ public class HomeActivity extends AppCompatActivity
                 username = dataSnapshot.child(id).child("name").getValue(String.class);
                 nameUser.setText(username);
 
-              /*  TextView textUser = findViewById(R.id.textUser);
-                textUser.setText(username);*/
+                TextView textUser = findViewById(R.id.textUserLogged);
+                textUser.setText(username);
 
                 ImageView imageUser = headerView.findViewById(R.id.imageUser);
                 urlUser = dataSnapshot.child(id).child("photourl").getValue(String.class);
