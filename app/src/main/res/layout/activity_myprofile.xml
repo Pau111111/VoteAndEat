@@ -12,42 +12,46 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="8dp"
-        android:text="Name"
         android:fontFamily="@font/lemon_milklight"
+        android:text="Name"
         app:layout_constraintBottom_toTopOf="@+id/btnUpdate"
         app:layout_constraintEnd_toStartOf="@+id/textUsername"
+        app:layout_constraintHorizontal_bias="0.701"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgBackground" />
+        app:layout_constraintTop_toBottomOf="@+id/imgBackground"
+        app:layout_constraintVertical_bias="0.7" />
 
     <EditText
         android:id="@+id/textUsername"
-        android:layout_width="wrap_content"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="100dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="Name"
         android:fontFamily="@font/lemon_milklight"
+        android:hint="Name"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/btnUpdate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgBackground" />
+        app:layout_constraintTop_toBottomOf="@+id/imgBackground"
+        app:layout_constraintVertical_bias="0.756" />
 
     <Button
         android:id="@+id/btnUpdate"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="108dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="Update"
-        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_marginStart="3dp"
         android:fontFamily="@font/lemon_milklight"
+        android:text="Update"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.364"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
@@ -123,7 +127,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginTop="152dp"
+        android:layout_marginTop="155dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

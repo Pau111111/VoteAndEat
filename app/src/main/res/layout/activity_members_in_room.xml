@@ -14,11 +14,11 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:fontFamily="@font/lemon_milklight"
         android:text="MEMBERS"
         android:textSize="24sp"
-        android:fontFamily="@font/lemon_milklight"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/_dynamic"
+        app:layout_constraintBottom_toTopOf="@+id/lvMembersListRoom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,8 +27,6 @@
         android:id="@+id/lvMembersListRoom"
         android:layout_width="0dp"
         android:layout_height="447dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
