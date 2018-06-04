@@ -139,6 +139,15 @@
             android:letterSpacing="0.1"
             android:text="Create Account ? Signup"
             android:textColor="#d9e5f3" />
+        <TextView
+            android:id="@+id/btnFor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+
+            android:letterSpacing="0.1"
+            android:text="Forgot Password?"
+            android:textColor="#d9e5f3" />
 
 
     </LinearLayout>

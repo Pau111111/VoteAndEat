@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
@@ -47,15 +48,22 @@ public class HomeActivity extends AppCompatActivity
     String username;
     String urlUser;
     private Session session;
+   // ConstraintLayout homeLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        getSupportFragmentManager().beginTransaction().replace(R.id.test,
+                new WelcomeActivity()).commit();
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.getMenu().getItem(0).setChecked(true);
         mAuth = FirebaseAuth.getInstance();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         session = new Session(this);
+       // homeLayout = findViewById(R.id.test);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -107,8 +115,6 @@ public class HomeActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
 
 
         // GET VIEW TO GET THE ID
@@ -131,6 +137,9 @@ public class HomeActivity extends AppCompatActivity
                 username = dataSnapshot.child(id).child("name").getValue(String.class);
                 nameUser.setText(username);
 
+                TextView textUser = findViewById(R.id.textUserLogged);
+                textUser.setText(username);
+
                 ImageView imageUser = headerView.findViewById(R.id.imageUser);
                 urlUser = dataSnapshot.child(id).child("photourl").getValue(String.class);
                 Picasso.get().load(urlUser).into(imageUser);
@@ -143,6 +152,7 @@ public class HomeActivity extends AppCompatActivity
 
             }
         });
+
     }
 
     @Override
@@ -174,12 +184,12 @@ public class HomeActivity extends AppCompatActivity
         if (id == R.id.action_aboutus) {
             return true;
         }
-        if (id == R.id.action_maps) {
+        /*if (id == R.id.action_maps) {
             startActivity(new Intent(HomeActivity.this,MapsActivity.class));
         }
         if (id == R.id.action_chat) {
             startActivity(new Intent(HomeActivity.this,ChatActivity.class));
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
@@ -188,25 +198,35 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.nav_home:
+                // homeLayout.removeAllViews();
+                getSupportFragmentManager().beginTransaction().replace(R.id.test,
+                        new WelcomeActivity()).commit();
+                break;
             case R.id.nav_votes:
+               // homeLayout.removeAllViews();
                 getSupportFragmentManager().beginTransaction().replace(R.id.test,
                         new VotesActivity()).commit();
                 break;
             case R.id.nav_favs:
+                //homeLayout.removeAllViews();
                 getSupportFragmentManager().beginTransaction().replace(R.id.test,
                         new FavoritesActivity()).commit();
                 break;
             case R.id.nav_restaurants:
+               // homeLayout.removeAllViews();
                 /*getSupportFragmentManager().beginTransaction().replace(R.id.test,
                         new RestaurantsActivity()).commit();*/
                 Intent intent = new Intent(HomeActivity.this, MapsActivity.class);
                 startActivity(intent);
                 break;
             case R.id.nav_settings:
+               // homeLayout.removeAllViews();
                 getSupportFragmentManager().beginTransaction().replace(R.id.test,
                         new SettingsActivity()).commit();
                 break;
             case R.id.nav_user:
+               // homeLayout.removeAllViews();
                 getSupportFragmentManager().beginTransaction().replace(R.id.test,
                         new MyProfileActivity()).commit();
                 break;
