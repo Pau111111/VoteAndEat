@@ -135,7 +135,11 @@ public class ViewPlace extends AppCompatActivity {
 
         //OPENING HOURS
         if(Common.currentResult.getOpening_hours() != null){
-            opening_hours.setText("Open now: " +Common.currentResult.getOpening_hours().getOpen_now());
+            if(Boolean.valueOf(Common.currentResult.getOpening_hours().getOpen_now())) {
+                opening_hours.setText("Open now");
+            } else{
+                opening_hours.setText("Closed now");
+            }
 
             openNowVotePlace =  Boolean.valueOf(Common.currentResult.getOpening_hours().getOpen_now());
         }else{
