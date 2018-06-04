@@ -28,6 +28,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:text="Place Name"
+                android:fontFamily="@font/lemon_milklight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -36,6 +37,7 @@
                 android:textSize="16sp"
                 android:textStyle="italic"
                 android:text="Place Address"
+                android:fontFamily="@font/lemon_milklight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -43,6 +45,7 @@
                 android:id="@+id/tvOpenHourVote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/lemon_milklight"
                 android:text="Open now"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -59,6 +62,8 @@
                 android:text="Show on map"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
+
+                android:fontFamily="@font/lemon_milklight"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>

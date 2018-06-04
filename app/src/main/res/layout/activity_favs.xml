@@ -16,6 +16,7 @@
         android:layout_marginTop="8dp"
         android:text="Favs"
         android:textSize="80dp"
+        android:fontFamily="@font/lemon_milklight"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

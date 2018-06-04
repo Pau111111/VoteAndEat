@@ -27,6 +27,10 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="end voting"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/background_light"
+        android:fontFamily="@font/lemon_milklight"
         app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -38,7 +42,11 @@
         android:layout_marginBottom="8dp"
         android:layout_marginStart="44dp"
         android:layout_marginTop="8dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/background_light"
+        android:fontFamily="@font/lemon_milklight"
         android:text="ADD RESTAURANT"
+        style="@style/Widget.AppCompat.Button.Colored"
         app:layout_constraintBottom_toTopOf="@+id/button2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -53,6 +61,7 @@
         android:text="Places to vote"
         android:textColor="@android:color/white"
         android:textSize="24sp"
+        android:fontFamily="@font/lemon_milklight"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/lvListOfPlacesLastStep"
         app:layout_constraintEnd_toEndOf="parent"
@@ -67,6 +76,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="chat"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:fontFamily="@font/lemon_milklight"
         app:layout_constraintBottom_toTopOf="@+id/button2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnAddRestaurantRoom"
@@ -79,6 +90,7 @@
         android:layout_marginBottom="20dp"
         android:layout_marginEnd="4dp"
         android:text="0 Members"
+        android:fontFamily="@font/lemon_milklight"
         app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintEnd_toStartOf="@+id/ibShowMemeberRoom" />
 
