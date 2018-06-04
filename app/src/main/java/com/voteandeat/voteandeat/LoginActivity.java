@@ -35,7 +35,7 @@ import com.voteandeat.voteandeat.Model.User;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    EditText emailLogin, passwordLogin;
+    EditText emailLogin, passwordLogin,btnFor;
     FirebaseAuth mAuth;
     GoogleSignInClient mGoogleSignInClient;
     //SignInButton signInButton;
@@ -64,6 +64,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         findViewById(R.id.btnRegister).setOnClickListener(this);
         findViewById(R.id.googleAuth).setOnClickListener(this);
         findViewById(R.id.btnLogin).setOnClickListener(this);
+        findViewById(R.id.btnFor).setOnClickListener(this);
 
         emailLogin = findViewById(R.id.emailLogin);
         passwordLogin = findViewById(R.id.passLogin);
@@ -160,6 +161,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Intent signInIntent = mGoogleSignInClient.getSignInIntent();
                 startActivityForResult(signInIntent, 101);
                 break;
+            case R.id.btnFor:
+                final String emailForgot = emailLogin.getText().toString().trim();
+                if(emailForgot.matches("")) {
+                    emailLogin.setError("Email is required");
+                    emailLogin.requestFocus();
+                }else{
+                    FirebaseAuth.getInstance().sendPasswordResetEmail(emailForgot)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(getApplicationContext(), "An email has been sent to this mail : " + emailForgot, Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                }
             case R.id.btnLogin:
                 final String email = emailLogin.getText().toString().trim();
                 String password = passwordLogin.getText().toString().trim();
