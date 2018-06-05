@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,13 +25,14 @@ import java.util.List;
 public class RoomActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     DatabaseReference dbReferenceMembersCount;
+    DatabaseReference dbReferenceEndVoting;
     ListView listViewPlacesLastStep;
     TextView tvMembersRoom;
     ImageButton ibShowMemeberRoom;
     List<VotePlace> votePlaces;
 
     String idRoom;
-    Button btnChatRoom, btnAddRestaurant;
+    Button btnChatRoom, btnAddRestaurant,btnEndVoting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,7 @@ public class RoomActivity extends AppCompatActivity {
 
         btnChatRoom = findViewById(R.id.btnChatRoom);
         btnAddRestaurant = findViewById(R.id.btnAddRestaurantRoom);
+        btnEndVoting = findViewById(R.id.btnEndVoting);
 
         btnChatRoom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +83,16 @@ public class RoomActivity extends AppCompatActivity {
         btnAddRestaurant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent i = new Intent(RoomActivity.this, MapsActivity.class);
+                i.putExtra("idActualRoom", idRoom);
+                startActivity(i);
+            }
+        });
+
+        btnEndVoting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO cambiar value de la room --> open - false
                 Intent i = new Intent(RoomActivity.this, MapsActivity.class);
                 i.putExtra("idActualRoom", idRoom);
                 startActivity(i);

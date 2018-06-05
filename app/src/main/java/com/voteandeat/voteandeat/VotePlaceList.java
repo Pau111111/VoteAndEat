@@ -5,26 +5,42 @@ import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import com.voteandeat.voteandeat.GoogleAPI.Common;
+import com.voteandeat.voteandeat.Room.Model.Room;
+import com.voteandeat.voteandeat.Room.Model.UserVote;
 import com.voteandeat.voteandeat.Room.Model.VotePlace;
 
+import java.util.ArrayList;
 import java.util.List;
 
 class VotePlaceList  extends ArrayAdapter<VotePlace> {
     private Activity context;
     private List<VotePlace> votePlacesList;
     DatabaseReference databaseReference;
+    DatabaseReference dbReferenceCheckboxUserVote;
+    DatabaseReference mDatabaseUserVote;
+    FirebaseAuth mAuth;
+    String idCurrentUser;
 
     public VotePlaceList(Activity context, List<VotePlace> votePlacesList, DatabaseReference databaseReference) {
         super(context, R.layout.activity_room,votePlacesList);
@@ -36,8 +52,12 @@ class VotePlaceList  extends ArrayAdapter<VotePlace> {
         LayoutInflater inflater = context.getLayoutInflater();
         View listViewItem = inflater.inflate(R.layout.simple_place_item,null,true);
 
+        mAuth = FirebaseAuth.getInstance();
+        idCurrentUser = mAuth.getCurrentUser().getUid();
+
         final TextView voteNameLastStep = listViewItem.findViewById(R.id.voteNameLastStep);
         final ImageView voteImgLastStep = listViewItem.findViewById(R.id.voteImgLastStep);
+        final CheckBox cbSelectPlaceUserVote= listViewItem.findViewById(R.id.cbSelectPlaceUserVote);
 
         final VotePlace votePlace = votePlacesList.get(pos);
         voteNameLastStep.setText(votePlace.getName());
@@ -60,6 +80,26 @@ class VotePlaceList  extends ArrayAdapter<VotePlace> {
                     });
             //Picasso.get().load(votePlace.getPhotoUrl()).into(voteImgLastStep);
         }
+
+        dbReferenceCheckboxUserVote = databaseReference.getParent();
+        //-------------------CHECKBOX--------------------
+        cbSelectPlaceUserVote.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    Log.d("Puchu", "Unchecked");
+                    String userVoteKey = dbReferenceCheckboxUserVote.push().getKey();
+                    UserVote userVote = new UserVote(idCurrentUser,votePlace.getIdVotePlace());
+                    //DatabaseReference mDatabaseUserVote = databaseReference.child(votePlace.getIdVotePlace()).child("UserVote").child(userVoteKey);
+                    mDatabaseUserVote = dbReferenceCheckboxUserVote.child("UserVote").child(userVoteKey);
+                    mDatabaseUserVote.setValue(userVote);
+                } else if(!isChecked){
+                    mDatabaseUserVote.removeValue();
+                }
+            }
+        });
+        //-------------------CHECKBOX--------------------
 
         listViewItem.setOnClickListener(new View.OnClickListener() {
             @Override

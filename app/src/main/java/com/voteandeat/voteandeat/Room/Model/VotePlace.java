@@ -10,11 +10,12 @@ public class VotePlace {
     public String stars;
     public Boolean openNow;
     public String mapUrl;
+    public String idVotePlace;
 
     public VotePlace(){
 
     }
-    public VotePlace(String idUser, String address, String name, String photoUrl, Double latitude, Double longitude, String stars, String mapUrl, Boolean openNow) {
+    public VotePlace(String idUser, String address, String name, String photoUrl, Double latitude, Double longitude, String stars, String mapUrl, Boolean openNow, String idVotePlace) {
         this.idUser = idUser;
         this.address = address;
         this.name = name;
@@ -24,6 +25,7 @@ public class VotePlace {
         this.stars = stars;
         this.mapUrl = mapUrl;
         this.openNow = openNow;
+        this.idVotePlace = idVotePlace;
     }
 
     public String getIdUser() {
@@ -98,6 +100,14 @@ public class VotePlace {
         this.openNow = openNow;
     }
 
+    public String getIdVotePlace() {
+        return idVotePlace;
+    }
+
+    public void setIdVotePlace(String idVotePlace) {
+        this.idVotePlace = idVotePlace;
+    }
+
     @Override
     public String toString() {
         return "VotePlace{" +
@@ -107,9 +117,10 @@ public class VotePlace {
                 ", photoUrl='" + photoUrl + '\'' +
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
-                ", stars=" + stars +
+                ", stars='" + stars + '\'' +
                 ", openNow=" + openNow +
                 ", mapUrl='" + mapUrl + '\'' +
+                ", idVotePlace='" + idVotePlace + '\'' +
                 '}';
     }
 }

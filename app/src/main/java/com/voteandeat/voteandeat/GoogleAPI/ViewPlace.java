@@ -85,14 +85,14 @@ public class ViewPlace extends AppCompatActivity {
 
                     FirebaseAuth mAuth = FirebaseAuth.getInstance();
                     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Rooms").child(idRoom).child("Votes").child("VotePlace");
-                    String  room_key = mDatabase.push().getKey();
+                    String  votePlaceKey = mDatabase.push().getKey();
 
                     String idCurrentUser = mAuth.getCurrentUser().getUid();
                     mapUrlVotePlace = myPlace.getResult().getUrl();
 
 
-                    VotePlace votePlace = new VotePlace(idCurrentUser,addressVotePlace,nameVotePlace,photoUrlVotePlace,latitudeVotePlace,longitudeVotePlace,starsVotePlace,mapUrlVotePlace,openNowVotePlace);
-                    DatabaseReference mDatabaseVotePlace = mDatabase.child(room_key);
+                    VotePlace votePlace = new VotePlace(idCurrentUser,addressVotePlace,nameVotePlace,photoUrlVotePlace,latitudeVotePlace,longitudeVotePlace,starsVotePlace,mapUrlVotePlace,openNowVotePlace,votePlaceKey);
+                    DatabaseReference mDatabaseVotePlace = mDatabase.child(votePlaceKey);
                     mDatabaseVotePlace.setValue(votePlace);
                     Toast.makeText(getApplicationContext(), "Vote created succesfully", Toast.LENGTH_SHORT).show();
 
