@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.voteandeat.voteandeat.GoogleAPI.MapsActivity;
 import com.voteandeat.voteandeat.Room.Chat.DiscussionActivity;
+import com.voteandeat.voteandeat.Room.EndVote;
 import com.voteandeat.voteandeat.Room.Model.VotePlace;
 
 import java.util.ArrayList;
@@ -93,7 +93,7 @@ public class RoomActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //TODO cambiar value de la room --> open - false
-                Intent i = new Intent(RoomActivity.this, MapsActivity.class);
+                Intent i = new Intent(RoomActivity.this, EndVote.class);
                 i.putExtra("idActualRoom", idRoom);
                 startActivity(i);
             }

@@ -24,31 +24,29 @@
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="84dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="64dp"
         android:background="@color/colorPrimary"
         android:fontFamily="@font/lemon_milklight"
         android:text="end voting"
         android:textColor="@android:color/background_light"
-        app:layout_constraintBottom_toTopOf="@+id/textView4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/btnChatRoom"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnAddRestaurantRoom"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="64dp"
         android:background="@color/colorPrimary"
-        android:textColor="@android:color/background_light"
         android:fontFamily="@font/lemon_milklight"
-        android:text="ADD RESTAURANT"
-        style="@style/Widget.AppCompat.Button.Colored"
+        android:text="ADD PLACE"
+        android:textColor="@android:color/background_light"
         app:layout_constraintBottom_toTopOf="@+id/button2"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnChatRoom"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -69,20 +67,20 @@
 
     <Button
         android:id="@+id/btnChatRoom"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="64dp"
+        android:background="@color/colorPrimary"
         android:fontFamily="@font/lemon_milklight"
         android:text="chat"
-        style="@style/Widget.AppCompat.Button.Colored"
         android:textColor="@android:color/background_light"
-        android:background="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/button2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnAddRestaurantRoom"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
